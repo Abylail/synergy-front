@@ -1,42 +1,67 @@
-.page {
-  padding: 20px 20px 150px;
-}
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
 
-// Колонки которые превращаются в список на телефоне  (relative-columns-3 три колонки)
-.relative-columns {
-  @for $columnCount from 2 through 5 {
-    &-#{$columnCount} {
-      display: grid;
-      grid-template-columns: repeat($columnCount, 1fr);
-      grid-column-gap: 15px;
+  &__image {
+    height: 130px;
+    width: 130px;
+    margin-bottom: 20px;
+  }
 
-      @media (max-width: $break-point) {
-        display: flex;
-        flex-direction: column;
-      }
-    }
+  &__title {
+    font-size: 40px;
+  }
+
+  &__subtitle {
+    font-size: 20px;
+  }
+
+  &__subtitle-red {
+    font-size: 20px;
+    color: #EF3F39;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: white;
+    margin-top: 30px;
+  }
+
+  &__input {
+    margin-top: 15px;
+  }
+
+  &__button {
+    margin-top: 40px
   }
 }
-// Колонки  (columns-3 три колонки)
-.columns {
-  @for $columnCount from 2 through 5 {
-    &-#{$columnCount} {
-      display: grid;
-      grid-template-columns: repeat($columnCount, 1fr);
-      grid-column-gap: 15px;
-    }
-  }
+
+@font-face {
+  font-family: "Roboto-Medium";
+  src: url('~/assets/fonts/Roboto-Medium.ttf') format("truetype");
+}
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url('~/assets/fonts/Roboto-Bold.ttf') format("truetype");
+}
+@font-face {
+  font-family: "Roboto-Light";
+  src: url('~/assets/fonts/Roboto-Light.ttf') format("truetype");
+}
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url('~/assets/fonts/Roboto-Regular.ttf') format("truetype");
 }
 
-
-// Переписываю стили vuetify
-.v-data-table__mobile-row {
-  min-height: 30px !important;
+body, h1, h2, h3, h4 {
+  margin: 0;
 }
-
-// Переписываю стиль vue-modal-service
-@media (max-width: $break-point) {
-  .modal__content {
-    padding: 12px !important;
-  }
+* {
+  font-family: Roboto-Light;
 }

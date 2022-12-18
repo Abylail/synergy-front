@@ -1,8 +1,6 @@
 
-const createCatcher = toast => err => {
-  if (err && err.response && err.response.data && err.response.data.message) {
-    toast.error(err.response.data.message);
-  }
+const createCatcher = () => err => {
+  console.log(err);
 }
 
 /** Создание options */
@@ -11,10 +9,10 @@ const createOptions = (options, store) => {
 }
 
 /** GET */
-const createGet = ({ axios, store, toast }) => {
+const createGet = ({ axios, store }) => {
   return (url, options = {}) => new Promise(resolve => {
     const prepareOptions = createOptions(options, store);
-    const catcher = createCatcher(toast);
+    const catcher = createCatcher();
     axios.$get(url, prepareOptions)
       .then(resolve)
       .catch(err => {catcher(err);resolve({ err });})
@@ -22,10 +20,10 @@ const createGet = ({ axios, store, toast }) => {
 }
 
 /** POST */
-const createPost = ({ axios, store, toast }) => {
+const createPost = ({ axios, store}) => {
   return (url, body = {}, options = {}) => new Promise(resolve => {
     const prepareOptions = createOptions(options, store);
-    const catcher = createCatcher(toast);
+    const catcher = createCatcher();
     axios.$post(url, body, prepareOptions)
       .then(resolve)
       .catch(err => {catcher(err);resolve({ err })})
@@ -33,10 +31,10 @@ const createPost = ({ axios, store, toast }) => {
 }
 
 /** PUT */
-const createPut = ({ axios, store, toast }) => {
+const createPut = ({ axios, store}) => {
   return (url, body = {}, options = {}) => new Promise(resolve => {
     const prepareOptions = createOptions(options, store);
-    const catcher = createCatcher(toast);
+    const catcher = createCatcher();
     axios.$put(url, body, prepareOptions)
       .then(resolve)
       .catch(err => {catcher(err);resolve({ err })})
@@ -44,23 +42,23 @@ const createPut = ({ axios, store, toast }) => {
 }
 
 /** DELETE */
-const createDelete = ({ axios, store, toast }) => {
+const createDelete = ({ axios, store}) => {
   return (url, options = {}) => new Promise(resolve => {
     const prepareOptions = createOptions(options, store);
-    const catcher = createCatcher(toast);
+    const catcher = createCatcher();
     axios.$delete(url, prepareOptions)
       .then(resolve)
       .catch(err => {catcher(err);resolve({ err });})
   })
 }
 
-const createApiLayer = ({ axios, store, toast }) => ({
-  $get: createGet({ axios, store, toast }),
-  $post: createPost({ axios, store, toast }),
-  $put: createPut({ axios, store, toast }),
-  $delete: createDelete({ axios, store, toast }),
+const createApiLayer = ({ axios, store}) => ({
+  $get: createGet({ axios, store}),
+  $post: createPost({ axios, store}),
+  $put: createPut({ axios, store}),
+  $delete: createDelete({ axios, store}),
 })
 
-export default function ({ $axios, store, $toast }, inject) {
-  inject("api", createApiLayer({ axios: $axios, store, toast: $toast }))
+export default function ({ $axios, store }, inject) {
+  inject("api", createApiLayer({ axios: $axios, store }))
 }

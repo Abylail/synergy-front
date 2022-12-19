@@ -1,5 +1,5 @@
 <template>
-  <div class="login auth-page">
+  <div class="login auth-page" @keyup.enter="loginHandle()">
     <img class="auth-page__image" alt="logo" :src="require('@/assets/images/logo.svg')"/>
     <h2 class="auth-page__subtitle">Добро пожаловать в <span class="auth-page__subtitle-red">Synergy</span></h2>
     <h1 class="auth-page__title">АВТОРИЗАЦИЯ</h1>
@@ -7,6 +7,7 @@
     <base-input class="auth-page__input" v-model="form.password" type="password" placeholder="Пароль"/>
     <base-button class="auth-page__button" :loading="isLoading" @click="loginHandle()">Войти</base-button>
     <nuxt-link class="auth-page__link" to="/repassword">Забыли пароль?</nuxt-link>
+    <nuxt-link class="auth-page__link" :to="{path: 'registration', query: $route.query}">Регистрация</nuxt-link>
   </div>
 </template>
 
@@ -34,6 +35,7 @@ export default {
 
     // Валидация
     validate() {
+      if (!this.form.username || !this.form.password) return false;
       return true;
     },
 

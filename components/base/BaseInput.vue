@@ -31,6 +31,7 @@ export default {
     // Ввод данных
     inputHandle(event) {
       this.$emit("input", event.target.value);
+      this.$forceUpdate();
     },
   }
 }

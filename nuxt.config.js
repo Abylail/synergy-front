@@ -52,6 +52,10 @@ export default {
     middleware: 'auth'
   },
 
+  server: {
+    port: 3001
+  },
+
   i18n: {
     locales: [{name: "Русский", code: "ru"}, {name: "Қазақша", code: "kk"}, {name: "English", code: "en"}],
     defaultLocale: "ru",

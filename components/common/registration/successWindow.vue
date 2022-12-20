@@ -15,7 +15,7 @@ export default {
   methods: {
     // Вернуться на главную
     goMain() {
-      this.$router.push("/");
+      window.location.href = "http://test1.arta-almaty.kz/Synergy/index?state=0";
     }
   }
 }

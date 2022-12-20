@@ -6,7 +6,8 @@
     <base-input class="auth-page__input" :value="form.iin" @input="setIin($event)" type="number" placeholder="ИИН"/>
     <base-input class="auth-page__input" v-model="form.fio" placeholder="ФИО"/>
     <base-input class="auth-page__input" v-model="form.email" type="email" placeholder="Email"/>
-    <base-button class="auth-page__button" @click="registrationHandle()">Зарегестрироваться</base-button>
+    <base-input class="auth-page__input" v-model="form.password" type="password" placeholder="Пароль"/>
+    <base-button class="auth-page__button" :loading="isLoading" @click="registrationHandle()">Зарегестрироваться</base-button>
     <nuxt-link class="auth-page__link" :to="{path: 'login', query: $route.query}">Страница входа</nuxt-link>
   </div>
   <success-window v-else/>
@@ -25,7 +26,8 @@ export default {
     form: {
       iin: null,
       fio: null,
-      email: null
+      email: null,
+      password: null,
     },
 
     isLoading: false,
@@ -65,6 +67,10 @@ export default {
         alert("Введите корректный Email");
         return false;
       }
+      if (!this.form.password) {
+        alert("Введите пароль");
+        return false;
+      }
       return true;
     },
 
@@ -72,14 +78,15 @@ export default {
     async registrationHandle() {
       this.isLoading = true;
       if (this.validate()) {
-        const isSuccess = await this._registration({
+        const {isSuccess, errorMessage} = await this._registration({
           iin: this.form.iin,
           fio: this.form.fio,
           email: this.form.email,
+          password: this.form.password,
         })
-        if (isSuccess) {
-          this.isSuccessRegistration = true;
-        }
+
+        if (isSuccess) this.isSuccessRegistration = true;
+        else alert(errorMessage);
       }
       this.isLoading = false;
     },

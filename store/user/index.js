@@ -35,21 +35,25 @@ export const actions = {
   },
 
   // Регистрация
-  registration({ commit }, {iin, fio, email, password="Art@2022"}) {
+  registration({ commit }, {iin, fio, email, password}) {
     const [lastname, firstname] = fio.split(" ");
     return new  Promise(resolve => {
-      this.$api.$post("/api/filecabinet/user/save", {
+      this.$api.$post("/api/filecabinet/user/save", new URLSearchParams({
         email,
         firstname: firstname || lastname,
         lastname,
         login: email,
         password,
         pointersCode: iin,
-      }, {
+      }), {
         auth: {username: "AdminArta", password: "Adm1nArta!"}
       })
         .then(response => {
-          resolve(!response.err);
+          const {errorCode, errorMessage} = response;
+          resolve({
+            isSuccess: !response.err && errorCode === "0",
+            errorMessage,
+          });
         })
     })
   },

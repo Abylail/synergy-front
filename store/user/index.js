@@ -37,18 +37,15 @@ export const actions = {
   // Регистрация
   registration({ commit }, {iin, fio, email, password="Art@2022"}) {
     const [lastname, firstname] = fio.split(" ");
-
-    let formData = new FormData();
-    formData.append("email", email);
-    formData.append("firstname", firstname || lastname);
-    formData.append("lastname", lastname);
-    formData.append("login", email);
-    formData.append("password", password);
-    formData.append("pointersCode", iin);
-
     return new  Promise(resolve => {
-      this.$api.$post("/api/filecabinet/user/save", formData, {
-        params: {locale: "ru"},
+      this.$api.$post("/api/filecabinet/user/save", {
+        email,
+        firstname: firstname || lastname,
+        lastname,
+        login: email,
+        password,
+        pointersCode: iin,
+      }, {
         auth: {username: "AdminArta", password: "Adm1nArta!"}
       })
         .then(response => {

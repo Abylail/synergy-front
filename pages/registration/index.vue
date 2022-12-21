@@ -8,7 +8,6 @@
     <base-input class="auth-page__input" v-model="form.email" type="email" placeholder="Email"/>
     <base-input class="auth-page__input" v-model="form.password" type="password" placeholder="Пароль"/>
     <base-button class="auth-page__button" :loading="isLoading" @click="registrationHandle()">Зарегестрироваться</base-button>
-    <nuxt-link class="auth-page__link" :to="{path: 'login', query: $route.query}">Страница входа</nuxt-link>
   </div>
   <success-window v-else/>
 </template>

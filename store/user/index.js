@@ -51,7 +51,7 @@ export const actions = {
         .then(async response => {
           const {errorCode, errorMessage} = response;
           const isSuccess = !response.err && errorCode === "0";
-          if (isSuccess) await dispatch("sendEmailNotification", {email, userId: response.userID})
+          if (isSuccess) await dispatch("sendEmailNotification", {login: "user_1@gmail.com" || email, userId: "f488e3d6-ca6d-4e54-ba14-cfecc55e5b17" || response.userID})
           resolve({
             isSuccess,
             errorMessage,
@@ -61,14 +61,14 @@ export const actions = {
   },
 
   // Отправка уведомления о регистрации на почту
-  sendEmailNotification({ }, {email, userId}) {
+  sendEmailNotification({ }, {login, userId}) {
     this.$api.$post("/apiapi/notifications/send", {
       "header": "Регистрация контрагента",
       "message": "Контрагент прошел регистрацию",
       "users": [userId],
       "groups": [],
-      "logins": [email],
-      "emails": [email]
+      "logins": [login],
+      "emails": [process.env.NOTIFY_EMAIL]
     })
       .then(response => {
         if (!response.err) {

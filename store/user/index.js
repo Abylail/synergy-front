@@ -46,7 +46,7 @@ export const actions = {
         password,
         pointersCode: iin,
       }), {
-        auth: {username: "AdminArta", password: "Adm1nArta!"}
+        auth: {username: "AdminFond", password: "AdminFond"}
       })
         .then(response => {
           const {errorCode, errorMessage} = response;

@@ -85,7 +85,7 @@ export default {
         })
 
         if (isSuccess) this.isSuccessRegistration = true;
-        else alert(errorMessage);
+        else alert(errorMessage || "Ошибка регистрации");
       }
       this.isLoading = false;
     },

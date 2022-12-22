@@ -15,7 +15,7 @@ export default {
   methods: {
     // Вернуться на главную
     goMain() {
-      window.location.href = "http://test1.arta-almaty.kz/Synergy/index?state=0";
+      window.location.href = process.env.MAIN_HOST+"/Synergy/index?state=0";
     }
   }
 }

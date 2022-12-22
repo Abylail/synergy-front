@@ -35,7 +35,7 @@ export const actions = {
   },
 
   // Регистрация
-  registration({ commit }, {iin, fio, email, password}) {
+  registration({ commit, dispatch }, {iin, fio, email, password}) {
     const [lastname, firstname] = fio.split(" ");
     return new  Promise(resolve => {
       this.$api.$post("/api/filecabinet/user/save", new URLSearchParams({
@@ -48,14 +48,33 @@ export const actions = {
       }), {
         auth: {username: "AdminFond", password: "AdminFond"}
       })
-        .then(response => {
+        .then(async response => {
           const {errorCode, errorMessage} = response;
+          const isSuccess = !response.err && errorCode === "0";
+          if (isSuccess) await dispatch("sendEmailNotification", {email, userId: response.userID})
           resolve({
-            isSuccess: !response.err && errorCode === "0",
+            isSuccess,
             errorMessage,
           });
         })
     })
   },
+
+  // Отправка уведомления о регистрации на почту
+  sendEmailNotification({ }, {email, userId}) {
+    this.$api.$post("/apiapi/notifications/send", {
+      "header": "Регистрация контрагента",
+      "message": "Контрагент прошел регистрацию",
+      "users": [userId],
+      "groups": [],
+      "logins": [email],
+      "emails": [email]
+    })
+      .then(response => {
+        if (!response.err) {
+          console.log(response);
+        }
+      })
+  }
 
 }

@@ -62,7 +62,7 @@ export const actions = {
 
   // Отправка уведомления о регистрации на почту
   sendEmailNotification({ }, {login, userId}) {
-    this.$api.$post("/apiapi/notifications/send", {
+    this.$api.$post("/api/notifications/send", {
       "header": "Регистрация контрагента",
       "message": "Контрагент прошел регистрацию",
       "users": [userId],

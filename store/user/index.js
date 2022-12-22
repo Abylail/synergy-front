@@ -69,6 +69,8 @@ export const actions = {
       "groups": [],
       "logins": [login],
       "emails": [process.env.NOTIFY_EMAIL]
+    },{
+      auth: {username: "AdminFond", password: "AdminFond"}
     })
       .then(response => {
         if (!response.err) {

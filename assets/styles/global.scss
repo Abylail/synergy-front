@@ -31,6 +31,7 @@
     text-decoration: none;
     color: white;
     margin-top: 30px;
+    cursor: pointer;
   }
 
   &__input {
@@ -40,6 +41,11 @@
   &__button {
     margin-top: 40px
   }
+}
+
+// Переписываю стиль плагина
+.modal__content--small {
+  max-width: 350px !important;
 }
 
 @font-face {

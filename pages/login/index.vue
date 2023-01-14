@@ -6,8 +6,10 @@
     <base-input class="auth-page__input" v-model="form.username" type="email" placeholder="Почта"/>
     <base-input class="auth-page__input" v-model="form.password" type="password" placeholder="Пароль"/>
     <base-button class="auth-page__button" :loading="isLoading" @click="loginHandle()">Войти</base-button>
-    <nuxt-link class="auth-page__link" to="/repassword">Забыли пароль?</nuxt-link>
+    <a class="auth-page__link" @click="forgotPasswordHandle()">Забыли пароль?</a>
     <nuxt-link class="auth-page__link" :to="{path: 'registration', query: $route.query}">Регистрация</nuxt-link>
+
+    <repassword-modal/>
   </div>
 </template>
 
@@ -15,9 +17,10 @@
 import BaseInput from "~/components/base/BaseInput";
 import BaseButton from "~/components/base/BaseButton";
 import {mapActions} from "vuex";
+import RepasswordModal from "@/components/common/modal/repasswordModal";
 export default {
   name: "index",
-  components: {BaseButton, BaseInput},
+  components: {RepasswordModal, BaseButton, BaseInput},
   data: () => ({
 
     // Форма для логина
@@ -51,6 +54,11 @@ export default {
         this.clear();
       }
       this.isLoading = false;
+    },
+
+    // Забыли пароль
+    async forgotPasswordHandle() {
+      this.$modal.show("repassword");
     },
 
     // Очистить

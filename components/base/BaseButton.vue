@@ -1,5 +1,5 @@
 <template>
-  <button class="base-button" @click="$emit('click', $event)">
+  <button class="base-button" :class="{'base-button--dark': dark}" @click="$emit('click', $event)">
     <slot v-if="!loading"/>
     <div class="base-button__loader" v-else/>
   </button>
@@ -12,7 +12,11 @@ export default {
     loading: {
       type: Boolean,
       default: false
-    }
+    },
+    dark: {
+      type: Boolean,
+      default: false
+    },
   }
 }
 </script>
@@ -21,7 +25,7 @@ export default {
 .base-button {
   width: 240px;
   height: 58px;
-  line-height: 58px;
+  line-height: 54px;
   border: 1px solid white;
   background: none;
   border-radius: 100px;
@@ -45,6 +49,30 @@ export default {
       border-color: white transparent white transparent;
       animation: rotation 1.2s linear infinite;
       margin: 0 auto;
+    }
+  }
+
+  &--dark {
+    border: 1px solid black;
+    color: black;
+
+    &:active {
+      background: black;
+      color: white;
+    }
+
+    .base-button__loader {
+      &:after {
+        content: " ";
+        display: block;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        border: 6px solid;
+        border-color: black transparent black transparent;
+        animation: rotation 1.2s linear infinite;
+        margin: 0 auto;
+      }
     }
   }
 }

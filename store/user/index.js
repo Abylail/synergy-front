@@ -72,11 +72,29 @@ export const actions = {
     },{
       auth: {username: "AdminFond", password: "AdminFond"}
     })
-      .then(response => {
-        if (!response.err) {
-          console.log(response);
-        }
+      .then(response => {})
+  },
+
+  // Забыли пароль
+  repassword({}, {login, password, passwordConfirm}) {
+    return new Promise(resolve => {
+      this.$api.$post("/api/filecabinet/user/changeCredentials", {
+        actionCode: "CHANGE_PASSWORD",
+        locale: "ru",
+        login, password, passwordConfirm
+      }, {
+        auth: {username: "AdminFond", password: "AdminFond"}
       })
-  }
+        .then(response => {
+          let prepareResponse = response.err ? response.err.response.data : response;
+          const {errorCode, errorMessage} = prepareResponse;
+          const isSuccess = !response.err && errorCode.toString() === "0";
+          resolve({
+            isSuccess,
+            errorMessage
+          })
+        })
+    })
+  },
 
 }

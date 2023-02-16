@@ -51,7 +51,8 @@ export default {
   },
 
   router: {
-    middleware: 'auth'
+    middleware: 'auth',
+    base: "/registration"
   },
 
   server: {

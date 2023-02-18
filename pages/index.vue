@@ -84,7 +84,10 @@ export default {
           password: this.form.password,
         })
 
-        if (isSuccess) this.isSuccessRegistration = true;
+        if (isSuccess) {
+          this.isSuccessRegistration = true;
+          setTimeout(() => {window.location.href = `${process.env.MAIN_HOST}/Synergy`}, 1000)
+        }
         else alert(errorMessage || "Ошибка регистрации");
       }
       this.isLoading = false;

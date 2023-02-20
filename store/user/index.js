@@ -46,7 +46,7 @@ export const actions = {
         password,
         pointersCode: iin,
       }), {
-        auth: {username: "AdminFond", password: "AdminFond"}
+        auth: {username: process.env.USERNAME, password: process.env.PASSWORD}
       })
         .then(async response => {
           const {errorCode, errorMessage} = response;
@@ -70,7 +70,7 @@ export const actions = {
       "logins": [login],
       "emails": [process.env.NOTIFY_EMAIL]
     },{
-      auth: {username: "AdminFond", password: "AdminFond"}
+      auth: {username: process.env.USERNAME, password: process.env.PASSWORD}
     })
       .then(response => {})
   },
@@ -83,7 +83,7 @@ export const actions = {
         locale: "ru",
         login, password, passwordConfirm
       }, {
-        auth: {username: "AdminFond", password: "AdminFond"}
+        auth: {username: process.env.USERNAME, password: process.env.PASSWORD}
       })
         .then(response => {
           let prepareResponse = response.err ? response.err.response.data : response;

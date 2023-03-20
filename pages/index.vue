@@ -3,9 +3,11 @@
     <img class="auth-page__image" alt="logo" :src="require('assets/images/logo.svg')"/>
     <h2 class="auth-page__subtitle">Добро пожаловать в <span class="auth-page__subtitle-red">Synergy</span></h2>
     <h1 class="auth-page__title">РЕГИСТРАЦИЯ</h1>
-    <base-input class="auth-page__input" :value="form.iin" @input="setIin($event)" type="number" placeholder="ИИН"/>
+    <base-input class="auth-page__input" :value="form.iin" @input="setIin($event)" type="number" placeholder="ИИН/БИН"/>
     <base-input class="auth-page__input" v-model="form.fio" placeholder="ФИО"/>
     <base-input class="auth-page__input" v-model="form.email" type="email" placeholder="Email"/>
+    <base-input class="auth-page__input" v-model="form.lastname" placeholder="Наименование организации"/>
+    <base-input class="auth-page__input" v-model="form.firstname" placeholder="ФИО руководителя"/>
     <base-input class="auth-page__input" v-model="form.password" type="password" placeholder="Пароль"/>
     <base-button class="auth-page__button" :loading="isLoading" @click="registrationHandle()">Зарегестрироваться</base-button>
   </div>
@@ -51,11 +53,19 @@ export default {
     // Валидация
     validate() {
       if (!this.form.iin) {
-        alert("Введите ИИН");
+        alert("Введите ИИН/БИН");
         return false;
       }
       if (!this.form.fio) {
         alert("Введите ФИО");
+        return false;
+      }
+      if (!this.form.lastname) {
+        alert("Введите наименование организации");
+        return false;
+      }
+      if (!this.form.firstname) {
+        alert("Введите ФИО руководителя");
         return false;
       }
       if (!this.form.email) {
